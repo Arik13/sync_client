@@ -44,5 +44,8 @@ const controllerFactory = <T>(controller: T, url: string, state: any) => {
 
 type Controller = SessionController & ServerProxy;
 
+// Change for git
+
+
 const url = "http://localhost:3000";
 export const controller = controllerFactory(new SessionController(), url, store.state.gs) as Controller;
