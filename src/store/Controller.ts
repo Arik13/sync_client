@@ -9,14 +9,14 @@ interface ServerProxy {
 }
 
 const controllerFactory = <T>(controller: T, url: string, state: any) => {
-    let contr = controller as any;
+    const contr = controller as any;
     delete contr.state;
-    let socket = io(url);
+    const socket = io(url);
     contr.socket = socket;
 
     // Dynamic Outgoing
-    let prototype = Object.getPrototypeOf(contr);
-    let keys = Object.getOwnPropertyNames(prototype);
+    const prototype = Object.getPrototypeOf(contr);
+    const keys = Object.getOwnPropertyNames(prototype);
     keys.forEach(key => {
         if (typeof(prototype[key]) == "function" && key != "constructor") {
             contr[key] = (arg: any) => {
@@ -44,5 +44,5 @@ const controllerFactory = <T>(controller: T, url: string, state: any) => {
 
 type Controller = SessionController & ServerProxy;
 
-let url = "http://localhost:3000";
-export let controller = controllerFactory(new SessionController(), url, store.state.gs) as Controller;
+const url = "http://localhost:3000";
+export const controller = controllerFactory(new SessionController(), url, store.state.gs) as Controller;
